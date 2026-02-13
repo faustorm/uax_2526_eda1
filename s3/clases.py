@@ -1,13 +1,15 @@
 import time
 
 class Persona:
-    def __init__(self,nombre,ano, estudios = [], documento = None, tipo_documento = None):
+    def __init__(self,nombre,ano, estudios = [], documento = None, tipo_documento = None, posicion_inicial = [0,0], velocidad = 1):
         self.nombre = nombre
         self.ano_nacimiento = ano
         self.edad = 2026 - self.ano_nacimiento
         self.documento = documento
         self.tipo_documento = tipo_documento
         self.estudios = estudios
+        self.posicion = posicion_inicial
+        self.velocidad = velocidad
 
     def saludar(self):
         saludo = f"Hola, me llamo {self.nombre} y tengo {self.edad} años."
@@ -32,6 +34,13 @@ class Persona:
     def print_estudios(self):
         print(", ".join(self.estudios))
 
+    def mover(self):
+        desplazamiento_x = self.velocidad   # un random integer entre -velocidad y velocidad
+        desplazamiento_y = self.velocidad
+        self.posicion = [self.posicion[0] + desplazamiento_x, self.posicion[1] + desplazamiento_y]
+    def __str__(self):
+        return f"{self.nombre} está en la posición {self.posicion}"
+
 class Alumno(Persona):
     def __init__(self):
         pass
@@ -49,6 +58,6 @@ class Espacio:
         self.ocupantes.append(ocupante)
         print(f"{ocupante.name} ha entrado en {self.name}")
     
-    def print_ocupantes(self.ocupantes):
+    def print_ocupantes(self):
         str_ocupantes = ", ".join(ocupante.name for ocupante in self.ocupantes)
         print(str_ocupantes)
